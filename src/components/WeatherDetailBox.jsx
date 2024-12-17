@@ -2,7 +2,7 @@ import React from "react";
 
 // Function to convert Unix timestamp to standard time
 export function convertToStandardTime(timestamp) {
-  const date = new Date(timestamp * 1000); // Convert to milliseconds
+  const date = new Date(timestamp * 1000); 
   const options = {
     hour: '2-digit',
     minute: '2-digit',
@@ -10,6 +10,23 @@ export function convertToStandardTime(timestamp) {
   };
   return date.toLocaleTimeString('en-US', options); // Format time to 12-hour standard
 }
+
+export const formatDateTime = (timestamp) => {
+  const date = new Date(timestamp * 1000);  
+  const dayOfWeek = date.toLocaleString('en-US', { weekday: 'long' });
+  const dayOfMonth = date.getDate();
+  const month = date.toLocaleString('en-US', { month: 'long' });
+  const year = date.getFullYear();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  const formattedTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+
+  return {
+    date: `${dayOfWeek}, ${month} ${dayOfMonth}, ${year}`,
+    time: formattedTime
+  };
+};
 
 const WeatherDetailBox = ({ icon, label, value }) => {
   return (

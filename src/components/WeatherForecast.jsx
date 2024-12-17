@@ -202,7 +202,7 @@ const WeatherForecast = ({ forecast }) => {
                     onClick={() => setShowGraph(!showGraph)}
                     className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 text-white font-semibold transition duration-200"
                 >
-                    {showGraph ? "Hide predictions" : "See more predictions"}
+                    {showGraph ? "Hide forecast" : "See more forecast"}
                 </button>
             </div>
 

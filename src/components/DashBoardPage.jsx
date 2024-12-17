@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useWeather } from "../context/WeatherContext";
 import { fetchMunicipalityDescription } from "../api/geminiApi";
 
-import WeatherDetailBox, { convertToStandardTime } from "./WeatherDetailBox";
+import WeatherDetailBox, { convertToStandardTime, formatDateTime } from "./WeatherDetailBox";
 import WeatherForecast from "./WeatherForecast";
 import DynamicWeatherWidget from "./DynamicWeatherWidget";
 
@@ -80,6 +80,7 @@ const DashboardPage = () => {
     const weatherCondition = weatherData.weather[0].main;
     const videoSource = weatherVideos[weatherCondition] || clearSkyVideo; // Default to clear sky video
 
+    const { date, time } = formatDateTime(weatherData.dt);
     const formattedSunrise = convertToStandardTime(weatherData.sys.sunrise);
     const formattedSunset = convertToStandardTime(weatherData.sys.sunset);
 
@@ -87,7 +88,7 @@ const DashboardPage = () => {
         <div className="relative min-h-screen bg-black text-white opacity=0">
             {/* Background video */}
             <div className="absolute top-0 left-0 w-full h-full ">
-                <video autoPlay loop muted className="w-full h-full object-cover opacity-50">
+                <video autoPlay loop muted className="w-full h-full object-cover opacity-30">
                     <source src={videoSource} type="video/mp4" />
                 </video>
             </div>
@@ -126,8 +127,7 @@ const DashboardPage = () => {
                     {/* Current temperature and description */}
                     <p className="text-4xl font-bold text-center mb-2">{weatherData.main.temp}°C </p>
                     <p className="text-4xl font-bold text-center " > {weatherData.weather[0].description}</p>
-
-
+                    <p className="text-2xl text-center mt-4">{date}</p>
                     {/* Additional weather details below */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
                         <WeatherDetailBox
